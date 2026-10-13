@@ -69,8 +69,8 @@ public class BulgarianValues implements BaseValues {
 
     @Override
     public String currency() {
-        return "лв";
-    }
+        return "€";
+}
 
     @Override
     public char twoDigitsNumberSeparator() {

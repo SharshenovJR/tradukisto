@@ -12,6 +12,7 @@ import java.util.Objects;
 
 public enum ValueConverters {
 
+    AZERBAIJANI_INTEGER(Container.azerbaijaniContainer().getIntegerConverter(), "az"),
     BRAZILIAN_PORTUGUESE_INTEGER(Container.brazilianPortugueseContainer().getIntegerConverter(), Arrays.asList("pt", "pt-br")),
     ENGLISH_INTEGER(Container.englishContainer().getIntegerConverter(), "en"),
     GERMAN_INTEGER(Container.germanContainer().getIntegerConverter(), "de"),
@@ -23,6 +24,7 @@ public enum ValueConverters {
     SLOVAK_INTEGER(Container.slovakContainer().getIntegerConverter(), "sk"),
     LATVIAN_INTEGER(Container.latvianContainer().getIntegerConverter(), "lv"),
     KAZAKH_INTEGER(Container.kazakhContainer().getIntegerConverter(), "kk"),
+    KYRGYZ_INTEGER(Container.kyrgyzContainer().getIntegerConverter(), "ky"),
     UKRAINIAN_INTEGER(Container.ukrainianContainer().getIntegerConverter(), "uk"),
     SERBIAN_INTEGER(Container.serbianContainer().getIntegerConverter(), Arrays.asList("sr", getLanguageCodeFor("sr", "Latn"))),
     SERBIAN_CYRILLIC_INTEGER(Container.serbianCyrillicContainer().getIntegerConverter(), getLanguageCodeFor("sr", "Cyrl")),
@@ -33,6 +35,7 @@ public enum ValueConverters {
     SLOVENE_INTEGER(Container.sloveneContainer().getIntegerConverter(), "sl"),
     SPANISH_INTEGER(Container.spanishContainer().getIntegerConverter(), "es"),
     HINDI_INTEGER(Container.hindiContainer().getIntegerConverter(), "hi"),
+    HUNGARIAN_INTEGER(Container.hungarianContainer().getIntegerConverter(), "hu"),
     SWEDISH_INTEGER(Container.swedishContainer().getIntegerConverter(), "sv"),
     JAPANESE_INTEGER(Container.japaneseKanjiContainer().getIntegerConverter(), "ja");
 

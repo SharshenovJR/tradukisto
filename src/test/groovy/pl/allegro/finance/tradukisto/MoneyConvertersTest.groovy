@@ -3,6 +3,7 @@ package pl.allegro.finance.tradukisto
 import spock.lang.Specification
 import spock.lang.Unroll
 
+import static pl.allegro.finance.tradukisto.MoneyConverters.AZERBAIJANI_BANKING_MONEY_VALUE;
 import static pl.allegro.finance.tradukisto.MoneyConverters.AMERICAN_ENGLISH_BANKING_MONEY_VALUE
 import static pl.allegro.finance.tradukisto.MoneyConverters.BRAZILIAN_PORTUGUESE_BANKING_MONEY_VALUE
 import static pl.allegro.finance.tradukisto.MoneyConverters.BULGARIAN_BANKING_MONEY_VALUE
@@ -14,6 +15,7 @@ import static pl.allegro.finance.tradukisto.MoneyConverters.HINDI_BANKING_MONEY_
 import static pl.allegro.finance.tradukisto.MoneyConverters.ITALIAN_BANKING_MONEY_VALUE
 import static pl.allegro.finance.tradukisto.MoneyConverters.JAPANESE_BANKING_MONEY_VALUE
 import static pl.allegro.finance.tradukisto.MoneyConverters.KAZAKH_BANKING_MONEY_VALUE
+import static pl.allegro.finance.tradukisto.MoneyConverters.KYRGYZ_BANKING_MONEY_VALUE
 import static pl.allegro.finance.tradukisto.MoneyConverters.LATVIAN_BANKING_MONEY_VALUE
 import static pl.allegro.finance.tradukisto.MoneyConverters.POLISH_BANKING_MONEY_VALUE
 import static pl.allegro.finance.tradukisto.MoneyConverters.RUSSIAN_BANKING_MONEY_VALUE
@@ -36,9 +38,10 @@ class MoneyConvertersTest extends Specification {
 
         where:
         language               | converter                                || money
+        "Azerbaijani"          | AZERBAIJANI_BANKING_MONEY_VALUE          || "bir min iki yüz otuz dörd AZN 56/100"
         "American English"     | AMERICAN_ENGLISH_BANKING_MONEY_VALUE     || "one thousand two hundred thirty-four \$ 56/100"
         "Brazilian Portuguese" | BRAZILIAN_PORTUGUESE_BANKING_MONEY_VALUE || "mil duzentos e trinta e quatro R\$ 56/100"
-        "Bulgarian"            | BULGARIAN_BANKING_MONEY_VALUE            || "хиляда двеста тридесет четири лв 56/100"
+        "Bulgarian"            | BULGARIAN_BANKING_MONEY_VALUE            || "хиляда двеста тридесет четири € 56/100"
         "Czech"                | CZECH_BANKING_MONEY_VALUE                || "jeden tisíc dvě stě třicet čtyři Kč 56/100"
         "Dutch"                | DUTCH_BANKING_MONEY_VALUE                || "duizendtweehonderdvierendertig € 56/100"
         "English"              | ENGLISH_BANKING_MONEY_VALUE              || "one thousand two hundred thirty-four £ 56/100"
@@ -47,6 +50,7 @@ class MoneyConvertersTest extends Specification {
         "Italian"              | ITALIAN_BANKING_MONEY_VALUE              || "milleduecentotrentaquattro € 56/100"
         "Japanese"             | JAPANESE_BANKING_MONEY_VALUE             || "千二百三十四 円 56/100"
         "Kazakh"               | KAZAKH_BANKING_MONEY_VALUE               || "бір мың екі жүз отыз төрт KZT 56/100"
+        "Kyrgyz"               | KYRGYZ_BANKING_MONEY_VALUE               || "бир миң эки жүз отуз төрт сом 56/100"
         "Latvian"              | LATVIAN_BANKING_MONEY_VALUE              || "viens tūkstotis divi simti trīsdesmit četri EUR 56/100"
         "Polish"               | POLISH_BANKING_MONEY_VALUE               || "jeden tysiąc dwieście trzydzieści cztery PLN 56/100"
         "Serbian Cyrillic"     | SERBIAN_CYRILLIC_BANKING_MONEY_VALUE     || "једна хиљада двеста тридесет четири РСД 56/100"

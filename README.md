@@ -3,7 +3,7 @@ Tradukisto
 
 [![Build](https://github.com/allegro/tradukisto/actions/workflows/ci.yml/badge.svg)](https://github.com/allegro/tradukisto/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/allegro/tradukisto/branch/master/graph/badge.svg?token=YO4NcWxDCI)](https://codecov.io/gh/allegro/tradukisto)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/pl.allegro.finance/tradukisto/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/pl.allegro.finance/tradukisto)
+![Maven Central Version](https://img.shields.io/maven-central/v/pl.allegro.finance/tradukisto)
 
 ## Introduction
 
@@ -21,6 +21,7 @@ With Tradukisto, you can now transform numbers into their word equivalents easy 
 
 ## Supported languages
 
+* 🇦🇿 Azerbaijani
 * 🇧🇷🇵🇹 Brazilian Portuguese
 * 🇧🇬 Bulgarian
 * 🇭🇷 Croatian
@@ -29,7 +30,9 @@ With Tradukisto, you can now transform numbers into their word equivalents easy 
 * 🇬🇧 English
 * 🇫🇷 French
 * 🇩🇪 German
+* 🇬🇷 Greek
 * 🇮🇳 Hindi
+* 🇭🇺 Hungarian
 * 🇮🇹 Italian
 * 🇯🇵 Japanese (KANJI)
 * 🇰🇿 Kazakh

@@ -3,6 +3,7 @@ package pl.allegro.finance.tradukisto
 import spock.lang.Specification
 import spock.lang.Unroll
 
+import static pl.allegro.finance.tradukisto.ValueConverters.AZERBAIJANI_INTEGER
 import static pl.allegro.finance.tradukisto.ValueConverters.BRAZILIAN_PORTUGUESE_INTEGER
 import static pl.allegro.finance.tradukisto.ValueConverters.BULGARIAN_INTEGER
 import static pl.allegro.finance.tradukisto.ValueConverters.CZECH_INTEGER
@@ -13,6 +14,7 @@ import static pl.allegro.finance.tradukisto.ValueConverters.HINDI_INTEGER
 import static pl.allegro.finance.tradukisto.ValueConverters.ITALIAN_INTEGER
 import static pl.allegro.finance.tradukisto.ValueConverters.JAPANESE_INTEGER
 import static pl.allegro.finance.tradukisto.ValueConverters.KAZAKH_INTEGER
+import static pl.allegro.finance.tradukisto.ValueConverters.KYRGYZ_INTEGER
 import static pl.allegro.finance.tradukisto.ValueConverters.LATVIAN_INTEGER
 import static pl.allegro.finance.tradukisto.ValueConverters.POLISH_INTEGER
 import static pl.allegro.finance.tradukisto.ValueConverters.RUSSIAN_INTEGER
@@ -37,6 +39,7 @@ class ValueConvertersTest extends Specification {
 
         where:
         language               | converter                    || number
+        "Azerbaijani"          | AZERBAIJANI_INTEGER          || "bir min iki yüz otuz dörd"
         "Brazilian Portuguese" | BRAZILIAN_PORTUGUESE_INTEGER || "mil duzentos e trinta e quatro"
         "Bulgarian"            | BULGARIAN_INTEGER            || "хиляда двеста тридесет четири"
         "Czech"                | CZECH_INTEGER                || "jeden tisíc dvě stě třicet čtyři"
@@ -47,6 +50,7 @@ class ValueConvertersTest extends Specification {
         "Italian"              | ITALIAN_INTEGER              || "milleduecentotrentaquattro"
         "Japanese"             | JAPANESE_INTEGER             || "千二百三十四"
         "Kazakh"               | KAZAKH_INTEGER               || "бір мың екі жүз отыз төрт"
+        "Kyrgyz"               | KYRGYZ_INTEGER               || "бир миң эки жүз отуз төрт"
         "Latvian"              | LATVIAN_INTEGER              || "viens tūkstotis divi simti trīsdesmit četri"
         "Polish"               | POLISH_INTEGER               || "jeden tysiąc dwieście trzydzieści cztery"
         "Serbian Cyrillic"     | SERBIAN_CYRILLIC_INTEGER     || "једна хиљада двеста тридесет четири"
@@ -79,6 +83,7 @@ class ValueConvertersTest extends Specification {
 
         where:
         locale                                                           || converter
+        new Locale("az")                                                 || AZERBAIJANI_INTEGER
         new Locale("pt-br")                                              || BRAZILIAN_PORTUGUESE_INTEGER
         new Locale("pt")                                                 || BRAZILIAN_PORTUGUESE_INTEGER
         new Locale("bg")                                                 || BULGARIAN_INTEGER
@@ -91,6 +96,7 @@ class ValueConvertersTest extends Specification {
         new Locale("de")                                                 || GERMAN_INTEGER
         Locale.GERMANY                                                   || GERMAN_INTEGER
         new Locale("kk")                                                 || KAZAKH_INTEGER
+        new Locale("ky")                                                 || KYRGYZ_INTEGER
         new Locale("lv")                                                 || LATVIAN_INTEGER
         new Locale("pl")                                                 || POLISH_INTEGER
         new Locale("ru")                                                 || RUSSIAN_INTEGER
@@ -133,6 +139,7 @@ class ValueConvertersTest extends Specification {
 
         where:
         languageCode || converter
+        "az"         || AZERBAIJANI_INTEGER
         "pt-br"      || BRAZILIAN_PORTUGUESE_INTEGER
         "pt"         || BRAZILIAN_PORTUGUESE_INTEGER
         "bg"         || BULGARIAN_INTEGER
@@ -143,6 +150,7 @@ class ValueConvertersTest extends Specification {
         "it"         || ITALIAN_INTEGER
         "de"         || GERMAN_INTEGER
         "kk"         || KAZAKH_INTEGER
+        "ky"         || KYRGYZ_INTEGER
         "lv"         || LATVIAN_INTEGER
         "pl"         || POLISH_INTEGER
         "ru"         || RUSSIAN_INTEGER

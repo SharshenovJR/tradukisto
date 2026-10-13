@@ -4,12 +4,14 @@ import pl.allegro.finance.tradukisto.internal.converters.BigDecimalToBankingMone
 import pl.allegro.finance.tradukisto.internal.converters.HundredsToWordsConverter;
 import pl.allegro.finance.tradukisto.internal.converters.NumberToWordsConverter;
 import pl.allegro.finance.tradukisto.internal.languages.bulgarian.BulgarianIntegerToWordsConverter;
+import pl.allegro.finance.tradukisto.internal.languages.azerbaijani.AzerbaijaniValues;
 import pl.allegro.finance.tradukisto.internal.languages.bulgarian.BulgarianValues;
 import pl.allegro.finance.tradukisto.internal.languages.croatian.CroatianValues;
 import pl.allegro.finance.tradukisto.internal.languages.czech.CzechIntegerToWordsConverter;
 import pl.allegro.finance.tradukisto.internal.languages.czech.CzechValues;
 import pl.allegro.finance.tradukisto.internal.languages.czech.CzechValuesForSmallNumbers;
 import pl.allegro.finance.tradukisto.internal.languages.dutch.DutchIntegerToWordsConverter;
+import pl.allegro.finance.tradukisto.internal.languages.dutch.DutchLongToWordsConverter;
 import pl.allegro.finance.tradukisto.internal.languages.dutch.DutchThousandToWordsConverter;
 import pl.allegro.finance.tradukisto.internal.languages.dutch.DutchValues;
 import pl.allegro.finance.tradukisto.internal.languages.english.AmericanEnglishValues;
@@ -19,9 +21,17 @@ import pl.allegro.finance.tradukisto.internal.languages.french.FrenchValues;
 import pl.allegro.finance.tradukisto.internal.languages.german.GermanIntegerToWordsConverter;
 import pl.allegro.finance.tradukisto.internal.languages.german.GermanThousandToWordsConverter;
 import pl.allegro.finance.tradukisto.internal.languages.german.GermanValues;
+import pl.allegro.finance.tradukisto.internal.languages.greek.GreekBigNumberToWordsConverter;
+import pl.allegro.finance.tradukisto.internal.languages.greek.GreekIntegerToWordsConverter;
+import pl.allegro.finance.tradukisto.internal.languages.greek.GreekValues;
+import pl.allegro.finance.tradukisto.internal.languages.greek.GreekValuesForSmallNumbers;
 import pl.allegro.finance.tradukisto.internal.languages.hindi.HindiBigDecimalToBankingMoneyConverter;
 import pl.allegro.finance.tradukisto.internal.languages.hindi.HindiValues;
 import pl.allegro.finance.tradukisto.internal.languages.hindi.IndianNumberToWordsConverter;
+import pl.allegro.finance.tradukisto.internal.languages.hungarian.HungarianIntegerToWordsConverter;
+import pl.allegro.finance.tradukisto.internal.languages.hungarian.HungarianNumberToWordsConverter;
+import pl.allegro.finance.tradukisto.internal.languages.hungarian.HungarianThousandToWordsConverter;
+import pl.allegro.finance.tradukisto.internal.languages.hungarian.HungarianValues;
 import pl.allegro.finance.tradukisto.internal.languages.italian.ItalianIntegerToWordsConverter;
 import pl.allegro.finance.tradukisto.internal.languages.italian.ItalianThousandToWordsConverter;
 import pl.allegro.finance.tradukisto.internal.languages.italian.ItalianValues;
@@ -29,6 +39,7 @@ import pl.allegro.finance.tradukisto.internal.languages.japanese.JapaneseNumberT
 import pl.allegro.finance.tradukisto.internal.languages.japanese.JapaneseThousandToWordsConverter;
 import pl.allegro.finance.tradukisto.internal.languages.japanese.JapaneseValues;
 import pl.allegro.finance.tradukisto.internal.languages.kazakh.KazakhValues;
+import pl.allegro.finance.tradukisto.internal.languages.kyrgyz.KyrgyzValues;
 import pl.allegro.finance.tradukisto.internal.languages.latvian.LatvianValues;
 import pl.allegro.finance.tradukisto.internal.languages.polish.PolishValues;
 import pl.allegro.finance.tradukisto.internal.languages.portuguese.BrazilianPortugueseValues;
@@ -103,12 +114,12 @@ public final class Container {
         SloveneValues values = new SloveneValues();
 
         SloveneThousandToWordsConverter sloveneThousandToWordsConverter = new SloveneThousandToWordsConverter(
-                values.baseNumbers());
+            values.baseNumbers());
 
         IntegerToStringConverter converter = new NumberToWordsConverter(sloveneThousandToWordsConverter, values.pluralForms());
 
         BigDecimalToStringConverter bigDecimalBankingMoneyValueConverter = new BigDecimalToBankingMoneyConverter(
-                converter, values.currency());
+            converter, values.currency());
 
         return new Container(converter, null, bigDecimalBankingMoneyValueConverter);
     }
@@ -125,6 +136,23 @@ public final class Container {
         );
         BigDecimalToStringConverter bigDecimalBankingMoneyValueConverter =
             new BigDecimalToBankingMoneyConverter(integerConverter, czechValues.currency());
+
+        return new Container(integerConverter, null, bigDecimalBankingMoneyValueConverter);
+    }
+
+    public static Container greekContainer() {
+        GreekValues values = new GreekValues();
+        GreekBigNumberToWordsConverter containerForBigNumbers = new GreekBigNumberToWordsConverter(values.baseNumbers());
+        Container containerForSmallNumbers = new Container(new GreekValuesForSmallNumbers());
+
+        IntegerToStringConverter integerConverter = new GreekIntegerToWordsConverter(
+                new NumberToWordsConverter(containerForBigNumbers, values.pluralForms()),
+                containerForSmallNumbers.getIntegerConverter(),
+                values.exceptions()
+        );
+
+        BigDecimalToStringConverter bigDecimalBankingMoneyValueConverter =
+                new BigDecimalToBankingMoneyConverter(integerConverter, values.currency());
 
         return new Container(integerConverter, null, bigDecimalBankingMoneyValueConverter);
     }
@@ -189,21 +217,26 @@ public final class Container {
     }
 
     public static Container dutchContainer() {
-
         DutchValues values = new DutchValues();
 
         DutchThousandToWordsConverter dutchThousandToWordsConverter =
             new DutchThousandToWordsConverter(values.baseNumbers());
 
         IntegerToStringConverter converter = new DutchIntegerToWordsConverter(
-            new NumberToWordsConverter(dutchThousandToWordsConverter, values.pluralForms()), values.exceptions(),
+            new NumberToWordsConverter(dutchThousandToWordsConverter, values.pluralForms()),
+            values.exceptions(),
             dutchThousandToWordsConverter
+        );
+
+        LongToStringConverter dutchLongToWordsConverter = new DutchLongToWordsConverter(
+            dutchThousandToWordsConverter,
+            values.pluralForms()
         );
 
         BigDecimalToStringConverter bigDecimalBankingMoneyValueConverter =
             new BigDecimalToBankingMoneyConverter(converter, values.currency());
 
-        return new Container(converter, null, bigDecimalBankingMoneyValueConverter);
+        return new Container(converter, dutchLongToWordsConverter, bigDecimalBankingMoneyValueConverter);
     }
 
     public static Container italianContainer() {
@@ -264,6 +297,11 @@ public final class Container {
         return new Container(kazakhValues);
     }
 
+    public static Container kyrgyzContainer() {
+        KyrgyzValues kyrgyzValues = new KyrgyzValues();
+        return new Container(kyrgyzValues);
+    }
+
     public static Container hindiContainer() {
         HindiValues hindiValues = new HindiValues();
 
@@ -282,6 +320,23 @@ public final class Container {
         LongToStringConverter longValueConverters = new IndianNumberToWordsConverter(hundredsToStringConverter, hindiValues.pluralForms());
 
         return new Container(integerToStringConverter, longValueConverters, bigDecimalConverter);
+    }
+
+    public static Container hungarianContainer() {
+        HungarianValues values = new HungarianValues();
+
+        HungarianThousandToWordsConverter hungarianThousandToWordsConverter =
+            new HungarianThousandToWordsConverter(values.baseNumbers());
+
+        IntegerToStringConverter converter = new HungarianIntegerToWordsConverter(
+            new HungarianNumberToWordsConverter(hungarianThousandToWordsConverter, values.pluralForms()),
+            hungarianThousandToWordsConverter
+        );
+
+        BigDecimalToStringConverter bigDecimalBankingMoneyValueConverter =
+            new BigDecimalToBankingMoneyConverter(converter, values.currency());
+
+        return new Container(converter, null, bigDecimalBankingMoneyValueConverter);
     }
 
     public static Container spanishContainer() {
@@ -346,6 +401,10 @@ public final class Container {
         );
 
         return new Container(integerToStringConverter, longToStringConverter, bigDecimalToBankingMoneyConverter);
+    }
+
+    public static Container azerbaijaniContainer() {
+        return new Container(new AzerbaijaniValues());
     }
 
     private final IntegerToStringConverter integerConverter;

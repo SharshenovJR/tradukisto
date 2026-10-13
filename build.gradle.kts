@@ -14,8 +14,8 @@ plugins {
     id("checkstyle")
     id("maven-publish")
     id("signing")
-    id("pl.allegro.tech.build.axion-release") version "1.13.3"
-    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
+    id("pl.allegro.tech.build.axion-release") version "1.21.1"
+    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
 dependencies {
@@ -33,7 +33,7 @@ java {
     withSourcesJar()
     withJavadocJar()
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
@@ -112,21 +112,24 @@ publishing {
 }
 
 nexusPublishing {
-    this.repositories {
+    repositories {
         sonatype {
             username.set(System.getenv("SONATYPE_USERNAME"))
             password.set(System.getenv("SONATYPE_PASSWORD"))
+            nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
         }
     }
 }
 
-if (System.getenv("GPG_KEY_ID") != null) {
-    signing {
-        useInMemoryPgpKeys(
-            System.getenv("GPG_KEY_ID"),
-            System.getenv("GPG_PRIVATE_KEY"),
-            System.getenv("GPG_PRIVATE_KEY_PASSWORD")
-        )
-        sign(publishing.publications)
+signing {
+    setRequired {
+        System.getenv("GPG_KEY_ID") != null
     }
+    useInMemoryPgpKeys(
+        System.getenv("GPG_KEY_ID"),
+        System.getenv("GPG_PRIVATE_KEY"),
+        System.getenv("GPG_PRIVATE_KEY_PASSWORD")
+    )
+    sign(publishing.publications)
 }
